@@ -66,12 +66,12 @@ def convert_Text_to_tikz(figtrans, T):
 def save_without_text(matplotlib_figure, filename):
     matplotlib_figure.savefig(filename)  # Hack to finalize the figure. 
     texts = [T for T in matplotlib_figure.findobj(Text) if T.get_text()]
-    colors = [T.get_color() for T in texts]
+    alphas = [T.get_alpha() for T in texts]
     for T in texts:
-        T.set_color('w')
+        T.set_alpha(0.0)
     matplotlib_figure.savefig(filename)
-    for c, T in zip(colors, texts):
-        T.set_color(c)
+    for a, T in zip(alphas, texts):
+        T.set_alpha(a)
 
 def convert_labels_to_tikz(matplotlib_figure):
     def pos(T):

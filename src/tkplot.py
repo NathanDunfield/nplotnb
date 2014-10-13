@@ -24,22 +24,22 @@ except:
 # Load MatplotLib
 import matplotlib
 matplotlib.use('TkAgg')
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-from matplotlib.backends.backend_tkagg import NavigationToolbar2TkAgg
+import matplotlib.pyplot as plt
+import matplotlib.backends.backend_tkagg as backend
 
 class MatplotFigure:
     def __init__(self, add_subplot=True, root=None, **kwargs):
         args = kwargs
-        figure = matplotlib.figure.Figure(figsize=(10,6), dpi=100)
+        figure = matplotlib.pyplot.figure(figsize=(10,6), dpi=100)
         figure.set_facecolor('white')
         axis = figure.add_subplot(111) if add_subplot else None
         self.figure, self.axis = figure, axis
         
         window = Tk.Tk() if root is None else Tk.Toplevel(root)
         figure_frame = ttk.Frame(window)
-        canvas = FigureCanvasTkAgg(figure, master=figure_frame)
+        canvas = backend.FigureCanvasTkAgg(figure, master=figure_frame)
         canvas._tkcanvas.config(highlightthickness=0, width=1000, height=600)
-        toolbar = NavigationToolbar2TkAgg(canvas, figure_frame)
+        toolbar = backend.NavigationToolbar2TkAgg(canvas, figure_frame)
         toolbar.pack(side=Tk.TOP, fill=Tk.X)
         canvas._tkcanvas.pack(side=Tk.TOP,  fill=Tk.BOTH, expand=1)
         toolbar.update()

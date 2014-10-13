@@ -11,6 +11,9 @@ x = np.sort(np.random.rand(N))
 y = 2*x + np.random.normal(0, 0.5, N)
 
 df= pd.DataFrame({'x':x, 'y':y})
-F = Figure()
-F.scatter(df.x, df.y, regression=True)
 
+
+F = Figure()
+plt.sca(F.axis)
+#tips = sns.load_dataset("tips")
+#sns.lmplot("total_bill", "tip", tips)

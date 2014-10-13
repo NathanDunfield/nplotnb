@@ -1,0 +1,8 @@
+dist/
+build/
+.DS_Store
+
+syntax: glob
+*.egg-info/
+*.pyc
+

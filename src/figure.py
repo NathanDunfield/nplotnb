@@ -6,12 +6,14 @@ from . import tkplot, tikzplot
 
 import numpy as np
 import pandas as pd
-import seaborn as sns
+#import seaborn as sns
+import mpltools.style
+mpltools.style.use('ggplot')
 import scipy.stats
 
 class Figure(tkplot.MatplotFigure):
     def save_as_tikz(self, filename, path='plots/'):
-        sagetikzplot.save_matplotlib_for_paper(self.figure, filename, path)
+        tikzplot.save_matplotlib_for_paper(self.figure, filename, path)
 
     def _set_label(self, spec, which_coor):
         if hasattr(spec, 'name'):
@@ -28,7 +30,7 @@ class Figure(tkplot.MatplotFigure):
         data = pd.DataFrame({'x':x, 'y':y})
         data = data[data.x.notnull()&data.y.notnull()]
         ax = self.axis
-        ax.scatter(data.x, data.y)
+        ax.scatter(data.x, data.y, **kwargs)
         ax.set_xscale(xscale), ax.set_yscale(yscale)
         if xlabel is None:
             xlabel = x
@@ -47,13 +49,14 @@ class Figure(tkplot.MatplotFigure):
         if ax.get_yscale() =='log':
             y = np.log10(y)
         slope, intercept, r, p, stderr = scipy.stats.linregress(x, y)
-        xs = [np.min(x), np.max(x)]
+        xr = np.max(x) - np.min(x)
+        xs = [np.min(x)-xr*0.03, np.max(x)+xr*0.03]
         ys = [slope*a + intercept for a in xs]
         if ax.get_xscale() =='log':
             xs = [10**a for a in xs]
         if ax.get_yscale() == 'log':
             ys = [10**a for a in ys]
-        ax.plot( xs, ys )
+        ax.plot( xs, ys, linewidth=1.5, color='#040404' )
         posargs = dict(transform=ax.transAxes, verticalalignment='top',
                     horizontalalignment='right')
         if annotate:
