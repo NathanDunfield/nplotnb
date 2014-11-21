@@ -1,8 +1,10 @@
 from nplot import Figure
 import pandas as pd
 import numpy as np
-import seaborn as sns
+#import seaborn as sns
 import matplotlib.pyplot as plt
+import Tkinter
+
 
 # Uniformly sample points in [0,1]
 
@@ -14,6 +16,7 @@ df= pd.DataFrame({'x':x, 'y':y})
 
 
 F = Figure()
-plt.sca(F.axis)
+F.scatter(df.x, df.y, regression=True)
 #tips = sns.load_dataset("tips")
 #sns.lmplot("total_bill", "tip", tips)
+F.window.tk.mainloop()
