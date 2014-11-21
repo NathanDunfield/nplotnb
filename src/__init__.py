@@ -1,2 +1,2 @@
-from . figure import Figure
+from . figure import Figure, histogram
 

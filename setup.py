@@ -11,5 +11,5 @@ setup(
     packages=['nplot'],
     package_dir = {'nplot':'src'},
     zip_safe = False,
-    install_requires = ['matplotlib', 'pandas', 'seaborn']
+    install_requires = ['matplotlib', 'pandas', 'mpltools']
 )

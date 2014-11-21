@@ -1,7 +1,7 @@
 Nathan Dunfield's personal Python-based plotting suite. 
 =======================================================
 
-Uses: Matplotlib, Seaborn, and Pandas
+Uses: Matplotlib, Pandas, and 
 
 Installation 
 ------------
