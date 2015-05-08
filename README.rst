@@ -31,7 +31,8 @@ include an Objective-C compiler.  For OS X, download the source
 tarball for matplotlib, and then do::
 
   cd matplotlib-*
-  sage -sh echo '[gui_support]' >> setup.cfg
+  sage -sh
+  echo '[gui_support]' >> setup.cfg
   echo 'macosx=false' >> setup.cfg
   python setup.py install
 
