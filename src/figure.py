@@ -6,13 +6,13 @@ from . import tkplot, tikzplot
 
 import numpy as np
 import pandas as pd
-#import seaborn as sns
-import mpltools.style
-mpltools.style.use('ggplot')
+import matplotlib.style
+matplotlib.style.use('ggplot')
 import scipy.stats
 
 class Figure(tkplot.MatplotFigure):
     def save_as_tikz(self, filename, path='plots/'):
+        self.figure.tight_layout()
         tikzplot.save_matplotlib_for_paper(self.figure, filename, path)
 
     def _set_label(self, spec, which_coor):
