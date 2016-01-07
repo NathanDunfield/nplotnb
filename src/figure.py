@@ -7,7 +7,6 @@ from . import tkplot, tikzplot
 import numpy as np
 import pandas as pd
 import matplotlib.style
-matplotlib.style.use('ggplot')
 import scipy.stats
 
 class Figure(tkplot.MatplotFigure):
