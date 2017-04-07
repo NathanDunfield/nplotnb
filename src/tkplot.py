@@ -14,13 +14,6 @@ else:
     import tkinter as Tk
 import ttk
 
-# Fix Sage issue; breaks attach.
-try:
-    import IPython.lib.inputhook as ih
-    ih.clear_inputhook()
-except:
-    pass
-
 # Load MatplotLib
 import matplotlib
 matplotlib.use('TkAgg')
