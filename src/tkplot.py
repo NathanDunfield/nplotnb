@@ -8,11 +8,8 @@ how to enable the Tk backend.
 
 # Load Tkinter
 import sys, os
-if sys.version_info[0] < 3:
-    import Tkinter as Tk
-else:
-    import tkinter as Tk
-import ttk
+import tkinter as Tk
+import tkinter.ttk as ttk
 
 # Load MatplotLib
 import matplotlib
@@ -32,7 +29,7 @@ class MatplotFigure:
         figure_frame = ttk.Frame(window)
         canvas = backend.FigureCanvasTkAgg(figure, master=figure_frame)
         canvas._tkcanvas.config(highlightthickness=0, width=1000, height=600)
-        toolbar = backend.NavigationToolbar2TkAgg(canvas, figure_frame)
+        toolbar = backend.NavigationToolbar2Tk(canvas, figure_frame)
         toolbar.pack(side=Tk.TOP, fill=Tk.X)
         canvas._tkcanvas.pack(side=Tk.TOP,  fill=Tk.BOTH, expand=1)
         toolbar.update()

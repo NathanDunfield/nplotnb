@@ -65,7 +65,8 @@ class Figure(tkplot.MatplotFigure):
         self.draw()
 
 
-def histogram(dataframe, column, fancy_col_name=None, bins=50, figure=None):
+def histogram(dataframe, column, fancy_col_name=None, bins=50,
+              figure=None, **kwargs):
     """
     Make a nice histogram from a Pandas DataFrame column
     """ 
@@ -73,7 +74,7 @@ def histogram(dataframe, column, fancy_col_name=None, bins=50, figure=None):
     if figure is None:
         figure = Figure()
     ax = figure.axis
-    ax.hist(np.asarray(data), bins=bins, normed=True)
+    ax.hist(np.asarray(data), bins=bins, normed=True, **kwargs)
 
     if fancy_col_name is None:
         fancy_col_name = column.replace('_', '')

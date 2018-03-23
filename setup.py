@@ -11,5 +11,5 @@ setup(
     packages=['nplot'],
     package_dir = {'nplot':'src'},
     zip_safe = False,
-    install_requires = ['matplotlib>=1.5', 'pandas']
+    install_requires = ['matplotlib>=1.5', 'pandas', 'six', 'future']
 )

@@ -1,10 +1,7 @@
 from nplot import Figure
 import pandas as pd
 import numpy as np
-#import seaborn as sns
 import matplotlib.pyplot as plt
-import Tkinter
-
 
 # Uniformly sample points in [0,1]
 

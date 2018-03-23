@@ -51,7 +51,8 @@ def position(fig, T):
 def convert_Text_to_tikz(figtrans, T):
     x, y = position(figtrans, T)
     horizontal = {'left':'right', 'center':'', 'right':'left'}[T.get_horizontalalignment()]
-    vertical = {'top':'below', 'bottom':'above', 'center':'', 'baseline':''}[T.get_verticalalignment()]
+    vertical = {'top':'below', 'bottom':'above', 'center':'',
+                'baseline':'', 'center_baseline':''}[T.get_verticalalignment()]
     horvert = vertical + ' ' + horizontal
     if T.get_rotation():
         horvert = 'rotate=%.1f' % T.get_rotation()
