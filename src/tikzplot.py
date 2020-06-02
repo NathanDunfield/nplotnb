@@ -1,5 +1,7 @@
-"""
-Saving Matplotlib figures so that all text becomes a TikZ overlay.
+""" 
+Saving Matplotlib figures so that all text becomes a TikZ overlay. For
+use with the LaTeX style "nmd/graphics".
+
 
 Typical usage:
 
@@ -24,22 +26,6 @@ from matplotlib.text import Text
 from matplotlib.backends.backend_agg import FigureCanvasAgg
 from collections import Counter
 import os
-
-def matplotlib_with_opts_matching_save(sage_graphic, **kwds):
-    """
-    The method Graphics.matplotlib doesn't produce the same 
-    matplotlib.Figure as is used in Graphics.save/Graphics.show.
-    This function matches what Graphics.save does.  
-    """
-    options = sage_graphic.SHOW_OPTIONS.copy()
-    options.update(sage_graphic._extra_kwds)
-    options.update(kwds)
-    for opt in ['dpi', 'transparent', 'fig_tight']:
-        options.pop(opt)
-    figure = sage_graphic.matplotlib(**options)
-    figure.set_canvas(FigureCanvasAgg(figure))
-    figure.tight_layout()
-    return figure
 
 def position(fig, T):
     text_trans = T.get_transform().transform_point
@@ -84,13 +70,10 @@ def convert_labels_to_tikz(matplotlib_figure):
     figtrans = matplotlib_figure.transFigure.inverted()
     return "\n".join( [convert_Text_to_tikz(figtrans, T) for T in texts]) 
 
-
-#def sageplot_tikz_labels(graphic, filename):
-#    save_graphic_for_tikz_overlay(graphic, filename)
-#    return convert_labels_to_tikz(graphic)
-
 def matplotlib_tikz_labels(figure, filename,
-                           relative_filename=None, width='4in', font='\\footnotesize'):
+                           relative_filename=None,
+                           width='4in',
+                           font='\\footnotesize'):
     save_without_text(figure, filename)
     if relative_filename is None:
         relative_filename = filename    
@@ -106,8 +89,13 @@ def save_matplotlib_for_paper(figure, filename, path='plots/'):
     are saved in the subdirectory "images" of the given "path" with 
     the TikZ code itself is saved in a corresponding ".tex" file in "path".  
     """
+    if not os.path.exists(path):
+        os.mkdir(path)
+    image_path = os.path.join(path, 'images')
+    if not os.path.exists(image_path):
+        os.mkdir(image_path)
     base = os.path.splitext(filename)[0]
-    imagename = os.path.join(path, 'images', filename) 
+    imagename = os.path.join(image_path, filename) 
     save_without_text(figure, imagename)
     labels = matplotlib_tikz_labels(figure, imagename,
                                     relative_filename=os.path.join('plots/images', filename),
@@ -117,6 +105,22 @@ def save_matplotlib_for_paper(figure, filename, path='plots/'):
     texfile = open(texname, 'w')
     texfile.write(labels + '\n')
     texfile.close()
+
+def matplotlib_with_opts_matching_save(sage_graphic, **kwds):
+    """
+    The method Graphics.matplotlib doesn't produce the same 
+    matplotlib.Figure as is used in Graphics.save/Graphics.show.
+    This function matches what Graphics.save does.  
+    """
+    options = sage_graphic.SHOW_OPTIONS.copy()
+    options.update(sage_graphic._extra_kwds)
+    options.update(kwds)
+    for opt in ['dpi', 'transparent', 'fig_tight']:
+        options.pop(opt)
+    figure = sage_graphic.matplotlib(**options)
+    figure.set_canvas(FigureCanvasAgg(figure))
+    figure.tight_layout()
+    return figure
         
 if __name__ == "__main__":
     import numpy, matplotlib
@@ -128,8 +132,8 @@ if __name__ == "__main__":
     axis.set_title(r'Plot of $\sin(t)$')
     axis.set_xlabel(r'$t$')
     axis.set_ylabel(r'$\sin(t)$')
-    save_matplotlib_for_paper(figure, 'test.pdf', '/tmp/plots')
-    figure.savefig('/tmp/plots/raw_figure.pdf')
+    save_matplotlib_for_paper(figure, 'test.pdf', 'plots')
+    figure.savefig('plots/raw_figure.pdf')
               
     
     
